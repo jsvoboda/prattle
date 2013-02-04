@@ -1,7 +1,7 @@
 <script>
   $(function() {
     // Create a new client to connect to Faye
-    var client = new Faye.Client('http://localhost:9292/faye');
+    var client = new Faye.Client('http://prattle-faye.herokuapp.com/bayeux');
     // Subscribe to the public channel
     var public_subscription = client.subscribe('/messages/public', function(data) {
       $('<p></p>').html(data.username + ": " + data.msg).appendTo('#chat_room');
