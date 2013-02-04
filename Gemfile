@@ -12,7 +12,7 @@ gem 'faye'
 # end
 
 group :development do
-	gem 'sqlite'
+	gem 'sqlite3'
 end
 
 
