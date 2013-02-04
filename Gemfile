@@ -7,9 +7,9 @@ gem 'rails', '3.2.8'
 
 gem 'faye'
 
-# group :production do
-#   gem "pg"
-# end
+group :production do
+  gem "pg"
+end
 
 group :development do
 	gem 'sqlite3'
