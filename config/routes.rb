@@ -1,11 +1,7 @@
 Prattle::Application.routes.draw do
 	get  '/chatroom' => 'chats#room', :as => :chat
-	get  '/login' => 'sessions#new', :as => :login
-	post '/login' => 'sessions#create', :as => :login
-
-  get "sessions/new"
-
-  get "sessions/create"
+	# get  '/login' => 'sessions#new', :as => :login
+	# post '/login' => 'sessions#create', :as => :login
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
