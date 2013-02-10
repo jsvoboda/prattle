@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_filter :init_name
+  # before_filter :init_name
 
   def new
   end
@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
 	  redirect_to chat_path
 	end
 
+	# TODO: not working as it's supposed to
 	def init_name
 		session[:username] = "new user"
 	end

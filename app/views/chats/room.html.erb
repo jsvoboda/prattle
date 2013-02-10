@@ -4,28 +4,41 @@
     var client = new Faye.Client('http://prattle-faye.herokuapp.com/bayeux');
     // Subscribe to the public channel
     var public_subscription = client.subscribe('/messages/public', function(data) {
-      $('<p></p>').html(data.username + ": " + data.msg).appendTo('#chat_room');
+      // $('<p></p>').html(data.username + ": " + data.msg).appendTo('#chat_room');
+      $('<div></div>').html(data.username + ": " + data.msg).appendTo('#chat');
+      // $('<div id="message"></div>').html("test div").appendTo('#chat');
     });
     // Handle form submissions and post messages to faye
     $('#new_message_form').submit(function(){
-      // Publish the message to the public channel
-      client.publish('/messages/public', {
+    	var message_text = $('#message').val();
+
+    	var message = {
       	username: '<%= session[:username] %>',
-        msg: $('#message').val()
-      });
+        msg: message_text
+      };
+
+      // Publish the message to the public channel
+      client.publish('/messages/public', message);
+
+      // Post it to rails as well
+      $.post("/chatroom", message, "json");
+
       // Clear the message box
       $('#message').val('');
-      // Don't actually submit the form, otherwise the page will refresh.
+
+      // Don't actually submit the form, otherwise the page will refresh
       return false;
     });
   });
 </script>
 
 <div class="chat_container">
-  <div id="chat_room">
-    <p class="alert"> Welcome to the chat room <%= session[:username] %>! </p>
-  </div>
-  <%= link_to "change name", login_path %>
+  <!-- <div id="chat_room">
+    <p class="alert"> Your name: <%= session[:username] %> </p>
+  </div> -->
+  <div id="chat">
+  	<%= render :partial => 'messages/message', :collection => @messages %>
+	</div>
   <form id="new_message_form">
     <input type="text" id="message" name="message">
     <input type="submit" value="Send">

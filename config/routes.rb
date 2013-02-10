@@ -1,7 +1,13 @@
 Prattle::Application.routes.draw do
+  match "messages/create"
+
+	resources :messages
 	get  '/chatroom' => 'chats#room', :as => :chat
+	post '/chatroom' => 'messages#create'
+	# match '/create_message' => 'chats#create_message', :as => :new_message
 	get  '/login' => 'sessions#new', :as => :login
 	post '/login' => 'sessions#create', :as => :login
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
